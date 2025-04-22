@@ -4,7 +4,7 @@ import { OrbitControls, Text3D, Center } from '@react-three/drei'
 import { Physics, useBox, usePlane } from '@react-three/cannon'
 import * as THREE from 'three'
 
-const FONT_URL = '/fonts/KAGE.json'
+const font = await new FontLoader().loadAsync('/fonts/helvetiker_regular.typeface.json')
 
 function Ground() {
   const [ref] = usePlane(() => ({
