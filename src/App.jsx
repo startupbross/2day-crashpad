@@ -4,7 +4,7 @@ import { OrbitControls, Text3D, Center } from '@react-three/drei'
 import { Physics, useBox, usePlane } from '@react-three/cannon'
 import * as THREE from 'three'
 
-const FONT_URL = '/fonts/KAGE-Freebies-Black.otf'
+const FONT_URL = '/fonts/KAGE.json'
 
 function Ground() {
   const [ref] = usePlane(() => ({
