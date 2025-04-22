@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, Text3D, Center } from '@react-three/drei'
 import { Physics, useBox, usePlane } from '@react-three/cannon'
 import * as THREE from 'three'
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
-import fontData from '/public/fonts/KAGE-Freebies-Black.otf' // path to your font
+
+const FONT_URL = '/fonts/KAGE-Freebies-Black.otf'
 
 function Ground() {
   const [ref] = usePlane(() => ({
@@ -19,37 +19,39 @@ function Ground() {
   )
 }
 
-function Number2({ delay, size }) {
-  const ref = useRef()
-  const [loadedFont, setLoadedFont] = useState(null)
-
-  const [boxRef] = useBox(() => ({
+function FallingTwo({ index, size }) {
+  const [ref] = useBox(() => ({
     mass: 1,
-    position: [Math.random() * 4 - 2, 10, Math.random() * 4 - 2],
+    position: [(Math.random() - 0.5) * 10, 10 + index * 1.5, (Math.random() - 0.5) * 4],
   }))
 
-  useEffect(() => {
-    const loader = new FontLoader()
-    loader.load('/fonts/KAGE-Freebies-Black.otf', font => setLoadedFont(font))
-  }, [])
-
-  if (!loadedFont) return null
-
   return (
-    <mesh ref={boxRef} castShadow>
-      <textGeometry args={['2', { font: loadedFont, size: size, height: 0.5 }]} />
-      <meshStandardMaterial color={new THREE.Color(`hsl(${Math.random() * 360}, 80%, 60%)`)} />
-    </mesh>
+    <Center>
+      <Text3D
+        ref={ref}
+        font={FONT_URL}
+        size={size}
+        height={0.5}
+        curveSegments={12}
+        bevelEnabled
+        bevelThickness={0.03}
+        bevelSize={0.02}
+        castShadow
+      >
+        2
+        <meshStandardMaterial color={new THREE.Color(`hsl(${Math.random() * 360}, 80%, 60%)`)} />
+      </Text3D>
+    </Center>
   )
 }
 
 export default function App() {
-  const [activeIndices, setActiveIndices] = useState([])
+  const [visibleIndices, setVisibleIndices] = useState([])
 
   useEffect(() => {
     let i = 0
     const interval = setInterval(() => {
-      setActiveIndices(prev => [...prev, i])
+      setVisibleIndices(prev => [...prev, i])
       i++
       if (i >= 12) clearInterval(interval)
     }, 300)
@@ -57,22 +59,28 @@ export default function App() {
   }, [])
 
   return (
-    <Canvas shadows camera={{ position: [0, 3, 10], fov: 50 }}>
-      <ambientLight intensity={0.4} />
+    <Canvas
+      shadows
+      camera={{ position: [0, 5, 15], fov: 50 }}
+      style={{ width: '100vw', height: '100vh', background: '#111' }}
+    >
+      <color attach="background" args={['#111']} />
+      <ambientLight intensity={0.5} />
       <directionalLight
-        castShadow
         position={[5, 10, 5]}
         intensity={1.2}
+        castShadow
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
       />
-      <OrbitControls />
+      <OrbitControls enableZoom minDistance={5} maxDistance={20} />
       <Physics>
-        {activeIndices.map((_, index) => (
-          <Number2 key={index} size={Math.random() * 0.8 + 0.4} />
+        {visibleIndices.map((_, i) => (
+          <FallingTwo key={i} index={i} size={Math.random() * 0.6 + 0.5} />
         ))}
         <Ground />
       </Physics>
     </Canvas>
   )
 }
+
