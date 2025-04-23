@@ -12,7 +12,7 @@ function Cube({ position }) {
     return (
       <mesh ref={ref} castShadow receiveShadow>
         <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color="#333333" metalness={0.3} roughness={0.6} />
+        <meshStandardMaterial color="#FDF5E6" metalness={0.3} roughness={0.6} />
       </mesh>
     )
   }
@@ -43,7 +43,7 @@ function Cube({ position }) {
           position={[0, -1.2, 0]}
         >
           2
-          <meshStandardMaterial color="#333333" metalness={0.2} roughness={0.4} />
+          <meshStandardMaterial color="#FDF5E6" metalness={0.2} roughness={0.4} />
         </Text3D>
   
         <Text3D
@@ -57,7 +57,7 @@ function Cube({ position }) {
           position={[4, 0, 0]}
         >
           DAY
-          <meshStandardMaterial color="#333333" metalness={0.2} roughness={0.4} />
+          <meshStandardMaterial color="#FDF5E6" metalness={0.2} roughness={0.4} />
         </Text3D>
       </group>
     )
@@ -72,7 +72,7 @@ export default function home() {
   style={{ width: '100vw', height: '100vh' }}
 >
   {/* Background */}
-  <color attach="background" args={['#FDF5E6']} />
+  <color attach="background" args={['#111111']} />
 
   {/* Global Lighting */}
   <ambientLight intensity={0.4} />
