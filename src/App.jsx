@@ -11,7 +11,8 @@ export default function App() {
   return (
     <>
       <div className="nav">
-        <div className="nav-logo">2DAY</div>
+      <Link to="/" className="nav-logo">2DAY</Link>
+
         <div className="nav-links">
           <Link to="/projects">PROJECTS</Link>
           <Link to="/about">ABOUT</Link>

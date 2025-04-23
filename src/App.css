@@ -4,20 +4,21 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;      /* ✅ Allow vertical scroll only */
+  overflow-y: auto;
   font-family: 'Helvetica Neue', sans-serif;
   background: #000;
 }
 
-/* Ensure root fills full screen */
 #root {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
   position: relative;
+  overflow-x: hidden;      /* ✅ Still allow vertical scroll */
 }
+
 
 /* Nav stays fixed and on top */
 .nav {
@@ -26,7 +27,7 @@ html, body {
   left: 0;
   right: 0;
   height: 64px;
-  background: #000;
+  background: #111;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -53,3 +54,26 @@ html, body {
 .nav-links a:hover {
   text-decoration: underline;
 }
+
+.nav-links a,
+.nav-logo {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links a:visited,
+.nav-logo:visited {
+  color: white;
+}
+
+.nav-links a:active,
+.nav-logo:active {
+  color: white;
+}
+
+.nav-links a:focus,
+.nav-logo:focus {
+  outline: none;
+  color: white;
+}
+

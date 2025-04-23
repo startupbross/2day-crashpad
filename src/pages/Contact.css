@@ -1,0 +1,30 @@
+.contact-page input,
+.contact-page textarea {
+  background: #111;
+  border: 1px solid #333;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contact-page input::placeholder,
+.contact-page textarea::placeholder {
+  color: #888;
+}
+
+.contact-page button {
+  background: white;
+  color: black;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.contact-page button:hover {
+  background: #eee;
+  color: #000;
+}
+
+.contact-page {
+  padding-top: 100px; /* So it doesn’t hide under nav */
+}
