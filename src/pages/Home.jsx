@@ -67,51 +67,60 @@ function Cube({ position }) {
 export default function home() {
   return (
     <Canvas
-      shadows
-      camera={{ position: [0, 5, 15], fov: 50 }}
-      style={{ width: '100vw', height: '100vh' }}
-    >
-      <color attach="background" args={['#FDF5E6']} />
-      <ambientLight intensity={0.4} />
-      <directionalLight
-        castShadow
-        position={[5, 10, 5]}
-        intensity={1.2}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-      />
-      <spotLight
-        position={[0, 10, 10]}
-        angle={0.3}
-        penumbra={0.5}
-        intensity={1.5}
-        castShadow
-      />
+  shadows
+  camera={{ position: [0, 5, 15], fov: 50 }}
+  style={{ width: '100vw', height: '100vh' }}
+>
+  {/* Background */}
+  <color attach="background" args={['#FDF5E6']} />
 
-      <OrbitControls 
-        enableZoom={false}
-        enablePan={false}
-        maxPolarAngle={Math.PI / 2.1}
-        minPolarAngle={Math.PI / 2.3}
-        maxAzimuthAngle={0.3}
-        minAzimuthAngle={-0.3}
+  {/* Global Lighting */}
+  <ambientLight intensity={0.4} />
+  <directionalLight
+    castShadow
+    position={[5, 10, 5]}
+    intensity={1.2}
+    shadow-mapSize-width={1024}
+    shadow-mapSize-height={1024}
+  />
+
+  {/* Focused spotlight just for the logo */}
+  <spotLight
+    position={[0, 10, 5]}        // Above and in front
+    angle={0.3}
+    intensity={1.7}
+    penumbra={0.4}
+    castShadow
+    target-position={[0, 2, 0]}  // Targeting the logo area
+  />
+
+  {/* OrbitControls for light camera motion */}
+  <OrbitControls 
+    enableZoom={false}
+    enablePan={false}
+    maxPolarAngle={Math.PI / 2.1}
+    minPolarAngle={Math.PI / 2.3}
+    maxAzimuthAngle={0.3}
+    minAzimuthAngle={-0.3}
+  />
+
+  {/* Physics + Elements */}
+  <Physics>
+    {Array.from({ length: 100 }).map((_, i) => (
+      <Cube
+        key={i}
+        position={[
+          (Math.random() - 0.5) * 10,
+          Math.random() * 5 + 5,
+          (Math.random() - 0.5) * 4
+        ]}
       />
+    ))}
+    <InvisibleFloor />
+  </Physics>
 
-      <Physics>
-        {Array.from({ length: 100 }).map((_, i) => (
-          <Cube
-            key={i}
-            position={[
-              (Math.random() - 0.5) * 10,
-              Math.random() * 5 + 5,
-              (Math.random() - 0.5) * 4
-            ]}
-          />
-        ))}
-        <InvisibleFloor />
-      </Physics>
-
-      <LogoText />
-    </Canvas>
+  {/* Center Logo */}
+  <LogoText />
+</Canvas>
   )
 }

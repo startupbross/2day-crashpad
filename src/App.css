@@ -1,13 +1,15 @@
-/* Bulletproof base reset */
+/* ---------------------------
+   RESET + GLOBAL STYLES
+--------------------------- */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow-x: hidden;      /* ✅ Allow vertical scroll only */
+  overflow-x: hidden;
   overflow-y: auto;
   font-family: 'Helvetica Neue', sans-serif;
-  background: #000;
+  background: #111111;
 }
 
 #root {
@@ -16,11 +18,13 @@ html, body {
   width: 100%;
   min-height: 100%;
   position: relative;
-  overflow-x: hidden;      /* ✅ Still allow vertical scroll */
+  overflow-x: hidden;
 }
 
 
-/* Nav stays fixed and on top */
+/* ---------------------------
+   NAVIGATION BAR
+--------------------------- */
 .nav {
   position: fixed;
   top: 0;
@@ -28,7 +32,7 @@ html, body {
   right: 0;
   height: 64px;
   background: #111;
-  color: white;
+  color: #FDF5E6;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,43 +41,73 @@ html, body {
   text-transform: uppercase;
   font-size: 1.1rem;
   letter-spacing: 0.04em;
-  border-bottom: 2px solid white;
 }
 
 .nav-logo {
   font-weight: 900;
   font-size: 1.5rem;
+  color: #FDF5E6;
+  text-decoration: none;
 }
 
 .nav-links a {
   margin-left: 2rem;
   text-decoration: none;
-  color: white;
+  color: #FDF5E6;
 }
 
 .nav-links a:hover {
   text-decoration: underline;
 }
 
-.nav-links a,
-.nav-logo {
-  color: white;
-  text-decoration: none;
-}
-
 .nav-links a:visited,
-.nav-logo:visited {
-  color: white;
-}
-
 .nav-links a:active,
-.nav-logo:active {
-  color: white;
-}
-
 .nav-links a:focus,
+.nav-logo:visited,
+.nav-logo:active,
 .nav-logo:focus {
-  outline: none;
   color: white;
+  outline: none;
 }
 
+
+/* ---------------------------
+   PRELOADER ANIMATION
+--------------------------- */
+.preloader {
+  position: fixed;
+  inset: 0;
+  background: #FDF5E6;
+  z-index: 99999;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 2rem 2rem;
+  gap: 1.5rem;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 7rem;
+  font-weight: bold;
+  color: #111111;
+  overflow: hidden;
+  transition: opacity 1s ease;
+}
+
+.preloader span {
+  opacity: 0;
+  animation: blink-in 0.8s forwards;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes blink-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
