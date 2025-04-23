@@ -4,64 +4,65 @@ import { Center, Text3D, OrbitControls } from '@react-three/drei'
 import { Physics, useBox, usePlane } from '@react-three/cannon'
 
 function Cube({ position }) {
-  const [ref] = useBox(() => ({
-    mass: 1,
-    position,
-    args: [1, 1, 1],
-  }))
-  return (
-    <mesh ref={ref} castShadow>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="#ffcc00" />
-    </mesh>
-  )
-}
-
-function InvisibleFloor() {
-  const [ref] = usePlane(() => ({
-    rotation: [-Math.PI / 2, 0, 0],
-    position: [0, -1, 0],
-  }))
-  return (
-    <mesh ref={ref} visible={false}>
-      <planeGeometry args={[100, 100]} />
-    </mesh>
-  )
-}
-
-function LogoText() {
-  return (
-    <group position={[-1.2, 2, 0]}>
-      <Text3D
-        font="/fonts/helvetiker_bold.typeface.json"
-        size={3}
-        height={0.4}
-        bevelEnabled
-        bevelSize={0.03}
-        bevelThickness={0.05}
-        curveSegments={12}
-        position={[0, -1.2, 0]}
-      >
-        2
-        <meshStandardMaterial color="white" />
-      </Text3D>
-
-      <Text3D
-        font="/fonts/helvetiker_bold.typeface.json"
-        size={1.5}
-        height={0.4}
-        bevelEnabled
-        bevelSize={0.03}
-        bevelThickness={0.05}
-        curveSegments={12}
-        position={[2.5, 0, 0]}
-      >
-        DAY
-        <meshStandardMaterial color="white" />
-      </Text3D>
-    </group>
-  )
-}
+    const [ref] = useBox(() => ({
+      mass: 1,
+      position,
+      args: [1, 1, 1],
+    }))
+    return (
+      <mesh ref={ref} castShadow receiveShadow>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color="#333333" metalness={0.3} roughness={0.6} />
+      </mesh>
+    )
+  }
+  
+  function InvisibleFloor() {
+    const [ref] = usePlane(() => ({
+      rotation: [-Math.PI / 2, 0, 0],
+      position: [0, -1, 0],
+    }))
+    return (
+      <mesh ref={ref} visible={false} receiveShadow>
+        <planeGeometry args={[100, 100]} />
+      </mesh>
+    )
+  }
+  
+  function LogoText() {
+    return (
+      <group position={[-4, 1, 0]}>
+        <Text3D
+          font="/fonts/helvetiker_bold.typeface.json"
+          size={5}
+          height={0.4}
+          bevelEnabled
+          bevelSize={0.03}
+          bevelThickness={0.05}
+          curveSegments={12}
+          position={[0, -1.2, 0]}
+        >
+          2
+          <meshStandardMaterial color="#333333" metalness={0.2} roughness={0.4} />
+        </Text3D>
+  
+        <Text3D
+          font="/fonts/helvetiker_bold.typeface.json"
+          size={2.5}
+          height={0.4}
+          bevelEnabled
+          bevelSize={0.03}
+          bevelThickness={0.05}
+          curveSegments={12}
+          position={[4, 0, 0]}
+        >
+          DAY
+          <meshStandardMaterial color="#333333" metalness={0.2} roughness={0.4} />
+        </Text3D>
+      </group>
+    )
+  }
+  
 
 export default function home() {
   return (
@@ -70,7 +71,7 @@ export default function home() {
       camera={{ position: [0, 5, 15], fov: 50 }}
       style={{ width: '100vw', height: '100vh' }}
     >
-      <color attach="background" args={['#111']} />
+      <color attach="background" args={['#FDF5E6']} />
       <ambientLight intensity={0.4} />
       <directionalLight
         castShadow
