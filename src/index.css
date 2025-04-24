@@ -1,8 +1,17 @@
-canvas {
-  width: 100vw;
+html, body {
+  margin: 0;
+  padding: 0;
   height: 100vh;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
+  width: 100vw;
+  overflow: hidden; /* ✅ Prevent any scrolling */
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #111111;
+  position: fixed; /* ✅ Lock it */
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
 }

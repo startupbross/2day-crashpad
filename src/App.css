@@ -8,21 +8,20 @@
 html, body {
   margin: 0;
   padding: 0;
-  width: 100vw;
   height: 100vh;
-  overflow: hidden; /* 🔒 No scroll */
+  width: 100vw;
+  overflow: hidden;
+  background: #111111;
   font-family: 'Helvetica Neue', sans-serif;
-  background-color: #FDF5E6; /* Cream background by default */
+  position: fixed; /* ✨ prevents any scrolling */
 }
 
 #root {
-  width: 100%;
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
   overflow: hidden;
   position: relative;
 }
-
-
 
 /* ---------------------------
    NAVIGATION BAR
