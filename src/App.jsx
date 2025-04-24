@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Projects from './pages/Projects'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import TransitionOverlay from './components/TransitionOverlay'
 import './App.css'
 
 function Preloader({ onDone }) {
@@ -41,10 +42,19 @@ export default function App() {
   const location = useLocation()
   const isHome = location.pathname === '/'
   const [loading, setLoading] = useState(isHome)
+  const [showTransition, setShowTransition] = useState(false)
+
+  // After preloader finishes, show transition effect
+  const handlePreloaderDone = () => {
+    setShowTransition(true)
+    setTimeout(() => setLoading(false), 50) // Let transition begin before unmounting preloader
+  }
 
   return (
     <>
-      {isHome && loading && <Preloader onDone={() => setLoading(false)} />}
+      {isHome && loading && <Preloader onDone={handlePreloaderDone} />}
+      <TransitionOverlay show={showTransition} onComplete={() => setShowTransition(false)} />
+
       {(!isHome || !loading) && (
         <div className="page-wrapper">
           <div className="nav">
@@ -65,5 +75,4 @@ export default function App() {
       )}
     </>
   )
-  
 }

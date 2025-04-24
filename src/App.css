@@ -115,3 +115,15 @@ html, body {
   display: flex;
   flex-direction: column;
 }
+
+.transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 99999;
+  transform-origin: center center;
+  pointer-events: none;
+}
