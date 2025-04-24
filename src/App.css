@@ -3,24 +3,26 @@
 --------------------------- */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
   background: #111111;
   font-family: 'Helvetica Neue', sans-serif;
-  position: fixed; /* ✨ prevents any scrolling */
+  position: relative;
 }
 
 #root {
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ---------------------------
@@ -61,17 +63,6 @@ html, body {
   text-decoration: underline;
 }
 
-.nav-links a:visited,
-.nav-links a:active,
-.nav-links a:focus,
-.nav-logo:visited,
-.nav-logo:active,
-.nav-logo:focus {
-  color: #FDF5E6;
-  outline: none;
-}
-
-
 /* ---------------------------
    PRELOADER ANIMATION
 --------------------------- */
@@ -83,27 +74,24 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Helvetica Neue', sans-serif;
   font-size: 2rem;
   font-weight: bold;
   color: #FDF5E6;
-  overflow: hidden;
   transition: opacity 1s ease;
 }
 
 .preloader.fade-out {
   opacity: 0;
   pointer-events: none;
+  visibility: hidden;
 }
 
-
 /* ---------------------------
-   TYPEWRITER EFFECT (JS-driven)
+   TYPEWRITER EFFECT
 --------------------------- */
 .typed-line {
   font-size: 2.5rem;
   font-weight: bold;
-  font-family: 'Helvetica Neue', sans-serif;
   color: #FDF5E6;
   white-space: nowrap;
 }

@@ -66,13 +66,15 @@ function LogoText() {
 export default function Home() {
   return (
     <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
       width: '100vw',
       height: '100vh',
       backgroundColor: '#111111',
       overflow: 'hidden',
-      position: 'relative'
+      zIndex: 1 // 👈 stays behind nav
     }}>
-    
       <Canvas
         shadows
         camera={{ position: [0, 5, 15], fov: 50 }}

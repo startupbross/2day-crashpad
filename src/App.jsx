@@ -45,29 +45,27 @@ function Preloader({ onDone }) {
 export default function App() {
   const [loading, setLoading] = useState(true)
 
+  if (loading) {
+    return <Preloader onDone={() => setLoading(false)} />
+  }
+
   return (
     <>
-      {loading && <Preloader onDone={() => setLoading(false)} />}
+      <div className="nav">
+        <Link to="/" className="nav-logo">2DAY</Link>
+        <div className="nav-links">
+          <Link to="/projects">PROJECTS</Link>
+          <Link to="/about">ABOUT</Link>
+          <Link to="/contact">CONTACT</Link>
+        </div>
+      </div>
 
-      {!loading && (
-        <>
-          <div className="nav">
-            <Link to="/" className="nav-logo">2DAY</Link>
-            <div className="nav-links">
-              <Link to="/projects">PROJECTS</Link>
-              <Link to="/about">ABOUT</Link>
-              <Link to="/contact">CONTACT</Link>
-            </div>
-          </div>
-
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </>
-      )}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
     </>
   )
 }

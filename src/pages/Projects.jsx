@@ -26,7 +26,8 @@ const projects = [
 ]
 
 export default function Projects() {
-    return (
+  return (
+    <div style={{ paddingTop: '64px', minHeight: '100vh' }}>
       <div className="projects-page">
         <div className="projects-grid">
           {projects.map((project) => (
@@ -49,10 +50,11 @@ export default function Projects() {
                   />
                 )}
               </div>
-              <h2 className="project-title">{project.title}</h2> {/* ✅ Moved outside the media-wrapper */}
+              <h2 className="project-title">{project.title}</h2>
             </Link>
           ))}
         </div>
       </div>
-    )
-  }
+    </div>
+  )
+}
