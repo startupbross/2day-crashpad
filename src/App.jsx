@@ -45,9 +45,8 @@ export default function App() {
   return (
     <>
       {isHome && loading && <Preloader onDone={() => setLoading(false)} />}
-
       {(!isHome || !loading) && (
-        <>
+        <div className="page-wrapper">
           <div className="nav">
             <Link to="/" className="nav-logo">2DAY</Link>
             <div className="nav-links">
@@ -56,15 +55,15 @@ export default function App() {
               <Link to="/contact">CONTACT</Link>
             </div>
           </div>
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
-        </>
+        </div>
       )}
     </>
   )
+  
 }

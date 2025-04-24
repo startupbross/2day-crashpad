@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import './Projects.css'
 
 const projects = [
@@ -23,15 +24,43 @@ const projects = [
     slug: 'corktown',
     image: '/images/2day.2.jpg',
   },
+  {
+    title: 'IAN AI',
+    slug: 'IANAI-project',
+    video: '/videos/2day.10.mp4',
+  },
+  {
+    title: 'Ceres',
+    slug: 'Ceres-project',
+    video: '/videos/day2.5.mp4',
+  },
+  {
+    title: 'Janick Cusine',
+    slug: 'heineken-concept',
+    image: '/images/2day.9.jpg',
+  },
+  {
+    title: 'Innerself Running',
+    slug: 'innerself-project',
+    video: '/videos/2day.6.mp4',
+  },
 ]
 
 export default function Projects() {
   return (
-    <div style={{ paddingTop: '64px', minHeight: '100vh' }}>
-      <div className="projects-page">
-        <div className="projects-grid">
-          {projects.map((project) => (
-            <Link to={`/projects/${project.slug}`} key={project.slug} className="project-card">
+    <div className="projects-page">
+      <h1 className="projects-heading">Recent Work</h1>
+      <div className="projects-grid">
+        {projects.map((project, i) => (
+          <motion.div
+            key={project.slug}
+            className="project-card"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <Link to={`/projects/${project.slug}`}>
               <div className="media-wrapper">
                 {project.video ? (
                   <video
@@ -52,8 +81,8 @@ export default function Projects() {
               </div>
               <h2 className="project-title">{project.title}</h2>
             </Link>
-          ))}
-        </div>
+          </motion.div>
+        ))}
       </div>
     </div>
   )

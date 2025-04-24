@@ -1,63 +1,118 @@
-import React from 'react'
-import { Canvas } from '@react-three/fiber'
-import { Text3D, OrbitControls } from '@react-three/drei'
-import { Physics, useBox, usePlane } from '@react-three/cannon'
+import React, { useRef, useEffect } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { OrbitControls, Text3D } from '@react-three/drei'
+import * as THREE from 'three'
 
-function Cube({ position }) {
-  const [ref] = useBox(() => ({
-    mass: 1,
-    position,
-    args: [1, 1, 1],
-  }))
+function SpiralField({ count = 3500, floaters = 300 }) {
+  const meshRef = useRef()
+  const dummy = new THREE.Object3D()
+  const colorArray = new Float32Array((count + floaters) * 3)
+
+  useEffect(() => {
+    if (!meshRef.current) return
+
+    for (let i = 0; i < count + floaters; i++) {
+      let x, y, z
+
+      if (i < count) {
+        // Spiral layout, starting at radius 3
+        const angle = i * 0.05
+        const radius = 3 + i * 0.007
+        x = radius * Math.cos(angle) * 1.0
+        y = radius * Math.sin(angle) * 0.85
+        z = (Math.random() - 0.5) * 6
+      } else {
+        // Outer random floaters
+        const r = Math.random() * 20 + 6
+        const theta = Math.random() * Math.PI * 2
+        const phi = Math.acos(2 * Math.random() - 1)
+        x = r * Math.sin(phi) * Math.cos(theta)
+        y = r * Math.sin(phi) * Math.sin(theta)
+        z = r * Math.cos(phi)
+      }
+
+      dummy.position.set(x, y, z)
+
+      const sizeRand = Math.random()
+      const scale = sizeRand < 0.33 ? 0.06 : sizeRand < 0.66 ? 0.09 : 0.13
+      dummy.scale.set(scale, scale, scale)
+
+      dummy.updateMatrix()
+      meshRef.current.setMatrixAt(i, dummy.matrix)
+
+      // Gradient: orange → pink → purple
+      const color = new THREE.Color()
+      color.setHSL(0.05 + 0.4 * (i / (count + floaters)), 1, 0.6)
+      color.toArray(colorArray, i * 3)
+    }
+
+    meshRef.current.geometry.setAttribute('color', new THREE.InstancedBufferAttribute(colorArray, 3))
+    meshRef.current.instanceMatrix.needsUpdate = true
+  }, [count, floaters])
+
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.z += 0.001
+    }
+  })
+
   return (
-    <mesh ref={ref} castShadow receiveShadow>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="#FDF5E6" metalness={0.3} roughness={0.6} />
-    </mesh>
+    <instancedMesh ref={meshRef} args={[null, null, count + floaters]}>
+      <sphereGeometry args={[1, 12, 12]} />
+      <meshStandardMaterial
+        vertexColors
+        emissive="#ffffff"
+        emissiveIntensity={0.15}
+        roughness={0.3}
+        metalness={0.3}
+      />
+    </instancedMesh>
   )
 }
 
-function InvisibleFloor() {
-  const [ref] = usePlane(() => ({
-    rotation: [-Math.PI / 2, 0, 0],
-    position: [0, -1, 0],
-  }))
-  return (
-    <mesh ref={ref} visible={false} receiveShadow>
-      <planeGeometry args={[100, 100]} />
-    </mesh>
-  )
-}
+function FloatingLogo() {
+  const logoRef = useRef()
 
-function LogoText() {
   return (
-    <group position={[-4, 1, 0]}>
+    <group ref={logoRef} position={[0, 0, 0]}>
       <Text3D
         font="/fonts/helvetiker_bold.typeface.json"
-        size={5}
-        height={0.4}
+        size={3}
+        height={0.3}
         bevelEnabled
         bevelSize={0.03}
         bevelThickness={0.05}
         curveSegments={12}
-        position={[0, -1.2, 0]}
+        position={[-3.5, -1.2, 0]}
       >
         2
-        <meshStandardMaterial color="#FDF5E6" metalness={0.2} roughness={0.4} />
+        <meshStandardMaterial
+          color="#FDF5E6"
+          emissive="#FDF5E6"
+          emissiveIntensity={0.5}
+          metalness={0.2}
+          roughness={0.4}
+        />
       </Text3D>
 
       <Text3D
         font="/fonts/helvetiker_bold.typeface.json"
-        size={2.5}
-        height={0.4}
+        size={1.5}
+        height={0.3}
         bevelEnabled
         bevelSize={0.03}
         bevelThickness={0.05}
         curveSegments={12}
-        position={[4, 1.1, 0]}
+        position={[-0.7, 0.1, 0]}
       >
         DAY
-        <meshStandardMaterial color="#FDF5E6" metalness={0.2} roughness={0.4} />
+        <meshStandardMaterial
+          color="#FDF5E6"
+          emissive="#FDF5E6"
+          emissiveIntensity={0.5}
+          metalness={0.2}
+          roughness={0.4}
+        />
       </Text3D>
     </group>
   )
@@ -65,52 +120,22 @@ function LogoText() {
 
 export default function Home() {
   return (
-    <div style={{ width: '100vw', height: '100vh', marginTop: '64px', position: 'relative', zIndex: 1 }}>
+    <div style={{ width: '100vw', minHeight: '100vh', position: 'relative' }}>
       <Canvas
         shadows
-        camera={{ position: [0, 5, 15], fov: 50 }}
-        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        camera={{ position: [0, 0, 20], fov: 50 }}
+        style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: 1 }}
       >
         <color attach="background" args={['#111111']} />
         <ambientLight intensity={0.4} />
-        <directionalLight
-          castShadow
-          position={[5, 10, 5]}
-          intensity={1.2}
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-        <spotLight
-          position={[0, 10, 5]}
-          angle={0.3}
-          intensity={1.7}
-          penumbra={0.4}
-          castShadow
-          target-position={[0, 2, 0]}
-        />
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          maxPolarAngle={Math.PI / 2.1}
-          minPolarAngle={Math.PI / 2.3}
-          maxAzimuthAngle={0.3}
-          minAzimuthAngle={-0.3}
-        />
-        <Physics>
-          {Array.from({ length: 100 }).map((_, i) => (
-            <Cube
-              key={i}
-              position={[
-                (Math.random() - 0.5) * 10,
-                Math.random() * 5 + 5,
-                (Math.random() - 0.5) * 4
-              ]}
-            />
-          ))}
-          <InvisibleFloor />
-        </Physics>
-        <LogoText />
+        <directionalLight position={[5, 10, 5]} intensity={1.2} />
+        <spotLight position={[0, 10, 5]} angle={0.3} intensity={1.7} penumbra={0.4} castShadow />
+        <OrbitControls enableZoom enablePan />
+        <SpiralField />
+        <FloatingLogo />
       </Canvas>
+
+      <div style={{ height: '200vh' }} />
     </div>
   )
 }

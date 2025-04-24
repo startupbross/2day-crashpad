@@ -15,10 +15,12 @@ html, body {
 
 #root {
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow-x: hidden;
   position: relative;
 }
+
+
 
 .nav {
   position: fixed;
@@ -95,4 +97,21 @@ html, body {
   50% {
     opacity: 0;
   }
+}
+
+.app-scroll-wrapper {
+  position: relative;
+  min-height: 100vh;
+  height: auto;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
