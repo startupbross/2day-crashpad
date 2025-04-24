@@ -1,6 +1,6 @@
 import React from 'react'
 import { Canvas } from '@react-three/fiber'
-import { Center, Text3D, OrbitControls } from '@react-three/drei'
+import { Text3D, OrbitControls } from '@react-three/drei'
 import { Physics, useBox, usePlane } from '@react-three/cannon'
 
 function Cube({ position }) {
@@ -65,23 +65,13 @@ function LogoText() {
 
 export default function Home() {
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100vw',
-      height: '100vh',
-      backgroundColor: '#111111',
-      overflow: 'hidden',
-      zIndex: 1 // 👈 stays behind nav
-    }}>
+    <div style={{ width: '100vw', height: '100vh', marginTop: '64px', position: 'relative', zIndex: 1 }}>
       <Canvas
         shadows
         camera={{ position: [0, 5, 15], fov: 50 }}
-        style={{ width: '100%', height: '100%' }}
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
       >
         <color attach="background" args={['#111111']} />
-
         <ambientLight intensity={0.4} />
         <directionalLight
           castShadow
@@ -90,7 +80,6 @@ export default function Home() {
           shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
         />
-
         <spotLight
           position={[0, 10, 5]}
           angle={0.3}
@@ -99,8 +88,7 @@ export default function Home() {
           castShadow
           target-position={[0, 2, 0]}
         />
-
-        <OrbitControls 
+        <OrbitControls
           enableZoom={false}
           enablePan={false}
           maxPolarAngle={Math.PI / 2.1}
@@ -108,9 +96,8 @@ export default function Home() {
           maxAzimuthAngle={0.3}
           minAzimuthAngle={-0.3}
         />
-
         <Physics>
-          {Array.from({ length: 150 }).map((_, i) => (
+          {Array.from({ length: 100 }).map((_, i) => (
             <Cube
               key={i}
               position={[
@@ -122,7 +109,6 @@ export default function Home() {
           ))}
           <InvisibleFloor />
         </Physics>
-
         <LogoText />
       </Canvas>
     </div>
