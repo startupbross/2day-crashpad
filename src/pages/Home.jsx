@@ -106,7 +106,7 @@ export default function home() {
 
   {/* Physics + Elements */}
   <Physics>
-    {Array.from({ length: 100 }).map((_, i) => (
+    {Array.from({ length: 300 }).map((_, i) => (
       <Cube
         key={i}
         position={[
