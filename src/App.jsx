@@ -8,40 +8,39 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 
 function Preloader({ onDone }) {
-  const [numbers, setNumbers] = useState([])
+  const fullText = 'A private strategy-led design studio crafting bold brand identities.'
+  const [typed, setTyped] = useState('')
+  const [index, setIndex] = useState(0)
   const [done, setDone] = useState(false)
 
   useEffect(() => {
-    let flashes = 10
-    let count = 0
-
-    const interval = setInterval(() => {
-      const newNum = Math.floor(Math.random() * 100)
-      setNumbers(prev => [...prev, newNum])
-      count++
-
-      if (count >= flashes) {
-        clearInterval(interval)
-        setTimeout(() => {
-          setDone(true)
-          setTimeout(onDone, 1000) // allow fade-out to finish
-        }, 500)
-      }
-    }, 300)
-
-    return () => clearInterval(interval)
-  }, [onDone])
+    if (index < fullText.length) {
+      const timeout = setTimeout(() => {
+        setTyped(prev => prev + fullText[index])
+        setIndex(prev => prev + 1)
+      }, 45)
+      return () => clearTimeout(timeout)
+    } else {
+      // Finished typing
+      const delay = setTimeout(() => {
+        setDone(true)
+        setTimeout(onDone, 600) // fade out after done
+      }, 800) // hold for a moment
+      return () => clearTimeout(delay)
+    }
+  }, [index, fullText, onDone])
 
   return (
     <div className={`preloader ${done ? 'fade-out' : ''}`}>
-      {numbers.map((num, idx) => (
-        <span key={idx} style={{ animationDelay: `${idx * 0.05}s` }}>
-          {num}
-        </span>
-      ))}
+      <div className="typed-line">
+        {typed}
+        <span className="cursor" />
+      </div>
     </div>
   )
 }
+
+
 
 export default function App() {
   const [loading, setLoading] = useState(true)

@@ -54,7 +54,7 @@ function Cube({ position }) {
           bevelSize={0.03}
           bevelThickness={0.05}
           curveSegments={12}
-          position={[4, 0, 0]}
+          position={[4, 1.1, 0]}
         >
           DAY
           <meshStandardMaterial color="#FDF5E6" metalness={0.2} roughness={0.4} />
