@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
 import About from './pages/About'
@@ -38,12 +38,15 @@ function Preloader({ onDone }) {
 }
 
 export default function App() {
-  const [loading, setLoading] = useState(true)
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+  const [loading, setLoading] = useState(isHome)
 
   return (
     <>
-      {loading && <Preloader onDone={() => setLoading(false)} />}
-      {!loading && (
+      {isHome && loading && <Preloader onDone={() => setLoading(false)} />}
+
+      {(!isHome || !loading) && (
         <>
           <div className="nav">
             <Link to="/" className="nav-logo">2DAY</Link>
