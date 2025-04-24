@@ -5,7 +5,7 @@ body, html, #root {
   padding: 0;
   height: 100%;
   width: 100%;
-  background-color: #111;
+  background-color: #111111;
   overflow: hidden;
   font-family: sans-serif;
 }
