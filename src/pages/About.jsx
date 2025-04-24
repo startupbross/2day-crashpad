@@ -4,7 +4,7 @@ import React from 'react'
 export default function About() {
   return (
     <div className="about-page" style={{ color: 'white', padding: '4rem', maxWidth: '800px', margin: '0 auto', lineHeight: '1.8', fontSize: '1.1rem' }}>
-      <h1 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>ABOUT</h1>
+      
 
       <p>We build brands in 2 days.</p>
       <p>Websites. Logos. Socials. The full thing — fast, clean, and built to last.</p>

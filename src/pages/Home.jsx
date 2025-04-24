@@ -68,8 +68,11 @@ export default function Home() {
     <div style={{
       width: '100vw',
       height: '100vh',
-      backgroundColor: '#111111', // ✅ This prevents the white flash
+      backgroundColor: '#111111',
+      overflow: 'hidden',
+      position: 'relative'
     }}>
+    
       <Canvas
         shadows
         camera={{ position: [0, 5, 15], fov: 50 }}
@@ -105,7 +108,7 @@ export default function Home() {
         />
 
         <Physics>
-          {Array.from({ length: 300 }).map((_, i) => (
+          {Array.from({ length: 150 }).map((_, i) => (
             <Cube
               key={i}
               position={[
