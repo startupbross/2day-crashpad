@@ -56,19 +56,16 @@ html, body {
   text-decoration: underline;
 }
 
-/* Preloader */
 .preloader {
   position: fixed;
   inset: 0;
-  background-color: #ffffff; /* white while typing */
+  background-color: #ffffff;
   z-index: 99999;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #111111;
   transition: opacity 1s ease;
+  padding: 2rem;
 }
 
 .preloader.fade-out {
@@ -77,12 +74,28 @@ html, body {
   visibility: hidden;
 }
 
+.preloader-content {
+  max-width: 600px;
+  text-align: center;
+}
+
 .typed-line {
-  font-size: 2.5rem;
+  font-size: clamp(1.4rem, 4vw, 2.5rem);
   font-weight: bold;
   color: #111111;
+  line-height: 1.4;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+@media (max-width: 600px) {
+  .typed-line {
+    white-space: normal;
+    text-align: center;
+  }
+}
+
 
 .cursor {
   display: inline-block;
@@ -92,6 +105,7 @@ html, body {
   margin-left: 4px;
   animation: blink 0.8s step-end infinite;
 }
+
 
 @keyframes blink {
   50% {

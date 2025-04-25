@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
 import About from './pages/About'
 import Contact from './pages/Contact'
-import PageSwoop from './components/PageSwoop'
 import NavBar from './components/NavBar'
+import PageSwoop from './components/PageSwoop'
 import './App.css'
 
 function Preloader({ onDone }) {
@@ -32,8 +32,10 @@ function Preloader({ onDone }) {
 
   return (
     <div className={`preloader ${done ? 'fade-out' : ''}`}>
-      <div className="typed-line">
-        {typed}<span className="cursor" />
+      <div className="preloader-content">
+        <div className="typed-line">
+          {typed}<span className="cursor" />
+        </div>
       </div>
     </div>
   )
@@ -43,28 +45,29 @@ export default function App() {
   const location = useLocation()
   const isHome = location.pathname === '/'
 
-  const swoopHasPlayed = localStorage.getItem('swoopComplete') === 'true'
+  const swoopPlayed = useRef(false)
 
-  const [loading, setLoading] = useState(isHome && !swoopHasPlayed)
-  const [swoopActive, setSwoopActive] = useState(false)
-  const [revealDone, setRevealDone] = useState(swoopHasPlayed)
+  const [showPreloader, setShowPreloader] = useState(isHome && !swoopPlayed.current)
+  const [showSwoop, setShowSwoop] = useState(false)
+  const [showContent, setShowContent] = useState(!isHome)
 
   const handlePreloaderDone = () => {
-    setSwoopActive(true)
+    setShowPreloader(false)
+    setShowSwoop(true)
   }
 
   const handleSwoopComplete = () => {
-    setSwoopActive(false)
-    setRevealDone(true)
-    localStorage.setItem('swoopComplete', 'true')
+    setShowSwoop(false)
+    setShowContent(true)
+    swoopPlayed.current = true
   }
 
   return (
     <>
-      {isHome && loading && <Preloader onDone={handlePreloaderDone} />}
-      {isHome && !swoopHasPlayed && <PageSwoop show={swoopActive} onComplete={handleSwoopComplete} />}
+      {showPreloader && <Preloader onDone={handlePreloaderDone} />}
+      {showSwoop && <PageSwoop show={showSwoop} onComplete={handleSwoopComplete} />}
 
-      {(!isHome || revealDone) && (
+      {showContent && (
         <div className="page-wrapper">
           <NavBar />
           <Routes>
