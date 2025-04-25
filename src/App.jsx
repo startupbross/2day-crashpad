@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Routes, Route, Link, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import PageSwoop from './components/PageSwoop'
+import NavBar from './components/NavBar'
 import './App.css'
 
 function Preloader({ onDone }) {
@@ -65,14 +66,7 @@ export default function App() {
 
       {(!isHome || revealDone) && (
         <div className="page-wrapper">
-          <div className="nav">
-            <Link to="/" className="nav-logo">2DAY</Link>
-            <div className="nav-links">
-              <Link to="/projects">PROJECTS</Link>
-              <Link to="/about">ABOUT</Link>
-              <Link to="/contact">CONTACT</Link>
-            </div>
-          </div>
+          <NavBar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
