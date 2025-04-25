@@ -18,22 +18,24 @@ export default function NavBar() {
         <Link to="/" className="nav-logo">2DAY</Link>
       </div>
 
-      <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
-        <span className={isOpen ? 'line open' : 'line'} />
-        <span className={isOpen ? 'line open' : 'line'} />
-        <span className={isOpen ? 'line open' : 'line'} />
-      </div>
-
-      <div className="nav-center desktop">
-        <Link to="/projects" className={location.pathname === '/projects' ? 'nav-link active' : 'nav-link'}>Projects</Link>
-        <Link to="/about" className={location.pathname === '/about' ? 'nav-link active' : 'nav-link'}>About</Link>
-        <Link to="/contact" className={location.pathname === '/contact' ? 'nav-link active' : 'nav-link'}>Contact</Link>
-      </div>
-
-      <div className="nav-right">
+      <div className="nav-center">
         <span className="based-in">
           <span className="dot-pulse" /> Based in Toronto
         </span>
+      </div>
+
+      <div className="nav-right">
+        <div className="nav-desktop-links">
+          <Link to="/projects" className={location.pathname === '/projects' ? 'nav-link active' : 'nav-link'}>Projects</Link>
+          <Link to="/about" className={location.pathname === '/about' ? 'nav-link active' : 'nav-link'}>About</Link>
+          <Link to="/contact" className={location.pathname === '/contact' ? 'nav-link active' : 'nav-link'}>Contact</Link>
+        </div>
+
+        <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
+          <span className={isOpen ? 'line open' : 'line'} />
+          <span className={isOpen ? 'line open' : 'line'} />
+          <span className={isOpen ? 'line open' : 'line'} />
+        </div>
       </div>
 
       <AnimatePresence>
