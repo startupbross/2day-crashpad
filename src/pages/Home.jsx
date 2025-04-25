@@ -123,7 +123,7 @@ export default function Home() {
     <div style={{ width: '100vw', minHeight: '100vh', position: 'relative' }}>
       <Canvas
         shadows
-        camera={{ position: [0, 0, 40], fov: 50 }}
+        camera={{ position: [12, -1, 30], fov: 50 }}
         style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: 1 }}
       >
         <color attach="background" args={['#111111']} />
