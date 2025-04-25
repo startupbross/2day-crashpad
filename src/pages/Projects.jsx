@@ -49,7 +49,7 @@ const projects = [
 export default function Projects() {
   return (
     <div className="projects-page">
-      <h1 className="projects-heading">Recent Work</h1>
+      <h1 className="projects-heading">Our Work</h1>
       <div className="projects-grid">
         {projects.map((project, i) => (
           <motion.div

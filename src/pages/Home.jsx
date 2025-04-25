@@ -15,14 +15,12 @@ function SpiralField({ count = 3500, floaters = 300 }) {
       let x, y, z
 
       if (i < count) {
-        // Spiral layout, starting at radius 3
         const angle = i * 0.05
         const radius = 3 + i * 0.007
         x = radius * Math.cos(angle) * 1.0
         y = radius * Math.sin(angle) * 0.85
         z = (Math.random() - 0.5) * 6
       } else {
-        // Outer random floaters
         const r = Math.random() * 20 + 6
         const theta = Math.random() * Math.PI * 2
         const phi = Math.acos(2 * Math.random() - 1)
@@ -40,7 +38,6 @@ function SpiralField({ count = 3500, floaters = 300 }) {
       dummy.updateMatrix()
       meshRef.current.setMatrixAt(i, dummy.matrix)
 
-      // Gradient: orange → pink → purple
       const color = new THREE.Color()
       color.setHSL(0.05 + 0.4 * (i / (count + floaters)), 1, 0.6)
       color.toArray(colorArray, i * 3)
@@ -127,6 +124,7 @@ export default function Home() {
         style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: 1 }}
       >
         <color attach="background" args={['#111111']} />
+
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 10, 5]} intensity={1.2} />
         <spotLight position={[0, 10, 5]} angle={0.3} intensity={1.7} penumbra={0.4} castShadow />

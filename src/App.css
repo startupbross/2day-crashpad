@@ -20,8 +20,7 @@ html, body {
   position: relative;
 }
 
-
-
+/* Navigation */
 .nav {
   position: fixed;
   top: 0;
@@ -57,17 +56,18 @@ html, body {
   text-decoration: underline;
 }
 
+/* Preloader */
 .preloader {
   position: fixed;
   inset: 0;
-  background-color: #111111;
+  background-color: #ffffff; /* white while typing */
   z-index: 99999;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
   font-weight: bold;
-  color: #FDF5E6;
+  color: #111111;
   transition: opacity 1s ease;
 }
 
@@ -80,7 +80,7 @@ html, body {
 .typed-line {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #FDF5E6;
+  color: #111111;
   white-space: nowrap;
 }
 
@@ -99,6 +99,7 @@ html, body {
   }
 }
 
+/* Scrollable Wrapper */
 .app-scroll-wrapper {
   position: relative;
   min-height: 100vh;
@@ -116,14 +117,15 @@ html, body {
   flex-direction: column;
 }
 
-.transition-overlay {
+/* Page Swoop */
+.swoop-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 200vw;
   height: 100vh;
-  background: #ffffff;
-  z-index: 99999;
-  transform-origin: center center;
+  z-index: 99998;
   pointer-events: none;
+  background: rgba(255, 255, 255, 0.92); /* slightly see-through */
+
 }

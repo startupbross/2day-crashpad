@@ -4,7 +4,7 @@ import Home from './pages/Home'
 import Projects from './pages/Projects'
 import About from './pages/About'
 import Contact from './pages/Contact'
-import TransitionOverlay from './components/TransitionOverlay'
+import PageSwoop from './components/PageSwoop'
 import './App.css'
 
 function Preloader({ onDone }) {
@@ -41,21 +41,29 @@ function Preloader({ onDone }) {
 export default function App() {
   const location = useLocation()
   const isHome = location.pathname === '/'
-  const [loading, setLoading] = useState(isHome)
-  const [showTransition, setShowTransition] = useState(false)
 
-  // After preloader finishes, show transition effect
+  const swoopHasPlayed = localStorage.getItem('swoopComplete') === 'true'
+
+  const [loading, setLoading] = useState(isHome && !swoopHasPlayed)
+  const [swoopActive, setSwoopActive] = useState(false)
+  const [revealDone, setRevealDone] = useState(swoopHasPlayed)
+
   const handlePreloaderDone = () => {
-    setShowTransition(true)
-    setTimeout(() => setLoading(false), 50) // Let transition begin before unmounting preloader
+    setSwoopActive(true)
+  }
+
+  const handleSwoopComplete = () => {
+    setSwoopActive(false)
+    setRevealDone(true)
+    localStorage.setItem('swoopComplete', 'true')
   }
 
   return (
     <>
       {isHome && loading && <Preloader onDone={handlePreloaderDone} />}
-      <TransitionOverlay show={showTransition} onComplete={() => setShowTransition(false)} />
+      {isHome && !swoopHasPlayed && <PageSwoop show={swoopActive} onComplete={handleSwoopComplete} />}
 
-      {(!isHome || !loading) && (
+      {(!isHome || revealDone) && (
         <div className="page-wrapper">
           <div className="nav">
             <Link to="/" className="nav-logo">2DAY</Link>
