@@ -1,35 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { DateTime } from 'luxon'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import './NavBar.css'
 
-const timezones = [
-  { label: 'LA', zone: 'America/Los_Angeles' },
-  { label: 'TOR', zone: 'America/Toronto' },
-  { label: 'LON', zone: 'Europe/London' }
-]
-
 export default function NavBar() {
-  const [times, setTimes] = useState({})
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [times, setTimes] = useState({ LA: '', TOR: '', LON: '' })
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
   const location = useLocation()
-
-  const navLinks = ['projects', 'about', 'contact']
+  const isMobile = window.innerWidth < 768
 
   useEffect(() => {
-    const updateTime = () => {
+    const updateTimes = () => {
       const now = DateTime.now()
-      const updated = {}
-      timezones.forEach(tz => {
-        updated[tz.label] = now.setZone(tz.zone).toFormat('h:mm:ss a')
+      setTimes({
+        LA: now.setZone('America/Los_Angeles').toFormat('h:mm:ss a'),
+        TOR: now.setZone('America/Toronto').toFormat('h:mm:ss a'),
+        LON: now.setZone('Europe/London').toFormat('h:mm:ss a'),
       })
-      setTimes(updated)
     }
-
-    updateTime()
-    const interval = setInterval(updateTime, 1000)
+    updateTimes()
+    const interval = setInterval(updateTimes, 1000)
     return () => clearInterval(interval)
   }, [])
 
@@ -40,87 +31,76 @@ export default function NavBar() {
 
   const toggleTheme = () => setTheme(prev => (prev === 'light' ? 'dark' : 'light'))
 
+  const formatTime = (t) => {
+    const [time, ampm] = t.split(' ')
+    return (
+      <>
+        {time}
+        <span className="ampm"> {ampm}</span>
+      </>
+    )
+  }
+
   return (
-    <motion.nav
-      className={`navbar ${theme}`}
-      initial={{ y: -60, opacity: 0 }}
+    <motion.div
+      className="navbar"
+      initial={{ y: -64, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.7, ease: 'easeOut' }}
+      transition={{ delay: 2, duration: 0.6, ease: 'easeOut' }}
     >
-      <div className="nav-grid">
-        {/* Left */}
-        <div className="nav-left">
-          <Link to="/" className="nav-logo">2DAY</Link>
-        </div>
+      <div className="nav-left">
+        <Link to="/" className="nav-logo">2DAY</Link>
+      </div>
 
-        {/* Center */}
-        <div className="nav-center">
-          {timezones.map(({ label }) => (
-            <div
-              key={label}
-              className={`nav-clock ${label === 'TOR' ? 'highlight' : ''}`}
-              title={label === 'TOR' ? '2DAY HQ' : ''}
+      <div className="nav-center">
+        {!isMobile ? (
+          <>
+            <motion.div
+              className="clock"
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.1, duration: 0.4 }}
             >
-              {label} {times[label]}
-            </div>
-          ))}
+              LA {formatTime(times.LA)}
+            </motion.div>
+            <motion.div
+              className="clock toronto"
+              title="2DAY HQ"
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.2, duration: 0.4 }}
+            >
+              TOR {formatTime(times.TOR)}
+            </motion.div>
+            <motion.div
+              className="clock"
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.3, duration: 0.4 }}
+            >
+              LON {formatTime(times.LON)}
+            </motion.div>
+          </>
+        ) : (
+          <div className="clock toronto" title="2DAY HQ">
+            TOR {formatTime(times.TOR)}
+          </div>
+        )}
+      </div>
+
+      <div className="nav-right">
+        <div className="nav-links">
+          <Link to="/projects" className={location.pathname === '/projects' ? 'active' : ''}>PROJECTS</Link>
+          <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>ABOUT</Link>
+          <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>CONTACT</Link>
         </div>
 
-        {/* Right */}
-        <div className="nav-right">
-          <div className="theme-toggle-wrapper">
-            <div className="theme-toggle-track" onClick={toggleTheme}>
-              <motion.div
-                className="theme-toggle-thumb"
-                layout
-                transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                style={{ left: theme === 'light' ? '20px' : '2px' }}
-              />
-            </div>
-          </div>
-
-          <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
-            <div className={`line ${menuOpen ? 'open' : ''}`}></div>
-            <div className={`line ${menuOpen ? 'open' : ''}`}></div>
-            <div className={`line ${menuOpen ? 'open' : ''}`}></div>
-          </div>
-
-          <div className="nav-links-desktop">
-            {navLinks.map(link => (
-              <Link
-                key={link}
-                to={`/${link}`}
-                className={location.pathname.includes(link) ? 'active' : ''}
-              >
-                {link.toUpperCase()}
-              </Link>
-            ))}
+        <div className="theme-toggle" onClick={toggleTheme}>
+          <div className={`toggle-thumb ${theme === 'light' ? 'light' : 'dark'}`}>
+            {theme === 'light' ? '☀' : '🌙'}
           </div>
         </div>
       </div>
-
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            className="mobile-menu"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {navLinks.map(link => (
-              <Link
-                key={link}
-                to={`/${link}`}
-                className={location.pathname.includes(link) ? 'active' : ''}
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.toUpperCase()}
-              </Link>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+    </motion.div>
   )
 }
