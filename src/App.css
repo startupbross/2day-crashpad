@@ -75,8 +75,9 @@ html, body {
 }
 
 .preloader-content {
-  max-width: 600px;
-  text-align: center;
+  max-width: 90vw;
+  text-align: left;
+  padding: 0 1rem;
 }
 
 .typed-line {
@@ -89,12 +90,19 @@ html, body {
   text-overflow: ellipsis;
 }
 
+
 @media (max-width: 600px) {
   .typed-line {
     white-space: normal;
+    word-break: break-word;
+  }
+
+  .preloader-content {
     text-align: center;
+    padding: 0 1.5rem;
   }
 }
+
 
 
 .cursor {
