@@ -1,15 +1,36 @@
-import React, { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import './NavBar.css'
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import './NavBar.css';
 
 export default function NavBar() {
-  const location = useLocation()
-  const [isOpen, setIsOpen] = useState(false)
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isShrunk, setIsShrunk] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        // Scrolling down → shrink
+        setIsShrunk(true);
+      } else {
+        // Scrolling up → expand back
+        setIsShrunk(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   return (
     <motion.div
-      className="navbar"
+      className={`navbar ${isShrunk ? 'navbar-shrink' : ''}`}
       initial={{ y: -64, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 2, duration: 0.6, ease: 'easeOut' }}
@@ -53,5 +74,5 @@ export default function NavBar() {
         )}
       </AnimatePresence>
     </motion.div>
-  )
+  );
 }

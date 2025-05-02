@@ -17,6 +17,59 @@ body, html {
    CANVAS
 -------------------- */
 
+.enter-button {
+  position: fixed;
+  bottom: 30%;                      /* bottom third of screen */
+  left: 50%;                        /* center horizontally */
+  transform: translateX(-50%);
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #111111;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 9999;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 8px #8ab1a3, 0 0 12px #8ab1a3;
+}
+
+.enter-button::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(270deg, #8ab1a3, #6a9d8c, #8ab1a3);
+  background-size: 600% 600%;
+  border-radius: 50px;
+  z-index: -1;
+  animation: gradientBorder 4s ease infinite;
+}
+
+@keyframes gradientBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (min-width: 769px) {
+  .enter-button {
+    display: none;
+  }
+}
+
+
 
 /* HERO SECTION
 ----------------------
@@ -704,4 +757,17 @@ body, html {
 
 .nav-socials a:hover {
   color: #282828;
+}
+@media (max-width: 768px) {
+  .nav-socials {
+    flex-direction: column;        /* stack vertically */
+    align-items: flex-start;       /* align left */
+    gap: 0.5rem;
+    top: 1rem;                     /* slightly adjust top position */
+    left: 1rem;                    /* slightly adjust left position */
+  }
+
+  .nav-socials a {
+    font-size: 1rem;               /* slightly smaller icons on mobile */
+  }
 }

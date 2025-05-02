@@ -13,6 +13,7 @@ body[data-theme='light'] {
 .navbar {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100vw;
   height: 64px;
   z-index: 9999;
@@ -25,6 +26,17 @@ body[data-theme='light'] {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   color: var(--text);
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 769px) {
+  .navbar-shrink {
+    width: 60vw;
+    left: calc(50% - 30vw);   /* center 60vw without translate */
+    transform: scale(0.7);     /* just scale, no translate */
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
 }
 
 .nav-left {
@@ -53,7 +65,6 @@ body[data-theme='light'] {
   gap: 1.5rem;
 }
 
-/* Desktop links (hidden on mobile) */
 .nav-desktop-links {
   display: flex;
   align-items: center;
@@ -66,7 +77,6 @@ body[data-theme='light'] {
   text-decoration: none;
   color: var(--text);
   position: relative;
-  font-family: "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .nav-link::after {
@@ -85,7 +95,6 @@ body[data-theme='light'] {
   width: 100%;
 }
 
-/* LOCATION PILL */
 .based-in {
   display: flex;
   align-items: center;
@@ -96,11 +105,9 @@ body[data-theme='light'] {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 20px;
   color: var(--text);
-  font-family: "Helvetica Neue", Helvetica, sans-serif;
   white-space: nowrap;
 }
 
-/* RED DOT PULSE */
 .dot-pulse {
   width: 6px;
   height: 6px;
@@ -114,7 +121,6 @@ body[data-theme='light'] {
   50% { opacity: 1; }
 }
 
-/* HAMBURGER ICON */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -142,7 +148,6 @@ body[data-theme='light'] {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* MOBILE MENU */
 .mobile-menu {
   position: absolute;
   top: 64px;
@@ -166,7 +171,6 @@ body[data-theme='light'] {
   text-decoration: none;
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
   .nav-desktop-links {
     display: none;
@@ -174,5 +178,13 @@ body[data-theme='light'] {
 
   .hamburger {
     display: flex;
+  }
+
+  /* On mobile, ignore shrinking */
+  .navbar-shrink {
+    width: 100vw;
+    left: 0;
+    transform: scale(1);
+    border-radius: 0;
   }
 }
