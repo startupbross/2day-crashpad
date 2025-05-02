@@ -105,7 +105,7 @@ body[data-theme='light'] {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: red;
+  background: #8ab1a3;
   animation: blink 3s infinite;
 }
 
