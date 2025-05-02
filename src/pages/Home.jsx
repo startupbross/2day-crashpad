@@ -212,7 +212,6 @@ export default function Home() {
         <FloatingLogo />
       </Canvas>
 
-      {/* 🌟 MOBILE BUTTON HERE */}
       <button
         className="enter-button"
         onClick={() =>
@@ -220,7 +219,11 @@ export default function Home() {
         }
       >
         Enter →
+        <span className="orbit-ring">
+          <span className="orbit-dot" />
+        </span>
       </button>
+
 
       {/*HERO SECTION*/}
 
