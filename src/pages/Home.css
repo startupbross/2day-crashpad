@@ -59,6 +59,15 @@ body, html {
   z-index: 2;
   animation: gradientShift 15s linear infinite;
 }
+.hero-subheading {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #cccccc;
+  max-width: 800px;
+  text-align: center;
+  line-height: 1.6;
+}
+
 
 @keyframes gradientShift {
   0% { background-position: 0%; }
@@ -100,13 +109,13 @@ body, html {
 }
 
 .highlighted-word {
-  background: linear-gradient(90deg, #8ab1a3, #c6ffe4, #00ffff, #fff7f7);
+  background: linear-gradient(90deg, #8ab1a3, #c6ffe4, #ffde9b, #8ab1a3);
   background-size: 300%;
   background-clip: text;
   font-style: italic;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientShift 6s linear infinite;
+  animation: gradientShift 50s linear infinite;
 }
 
 @keyframes gradientShift {
@@ -568,15 +577,16 @@ body, html {
 .cta-main-button {
   display: inline-block;
   padding: 1rem 3rem;
-  border: 1px solid #fdf5e6;
+  border: 1px solid #8ab1a3;      /* match the border too */
   border-radius: 12px;
   font-size: 1.8rem;
   font-weight: 600;
-  color: #ffffff;              /* ← base font color */
-  background: transparent;
+  color: #ffffff;                 /* dark text for contrast */
+  background: #8ab1a3;            /* set default background */
   text-decoration: none;
   transition: all 0.3s ease;
 }
+
 
 .cta-main-button:hover {
   background: #8ab1a3;         /* ← background on hover */
@@ -629,7 +639,69 @@ body, html {
     padding: 4rem 1rem;
     background: #111;
     width: 100%;
-    margin-top: -1px;      /* 🔧 tightly overlap to avoid gap */
+    margin-top: -3px;      /* 🔧 tightly overlap to avoid gap */
   }
 }
 
+/*NAV SECTION 
+---------------
+*/
+
+.nav-section {
+  width: 100%;
+  padding: 3rem 2rem;
+  background: #fdf5e6;    /* solid background blocks canvas behind */
+  position: relative;
+  z-index: 1;          /* ensure it's above the canvas layer */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.nav-center h1 {
+  font-size: 22vw;
+  font-weight: 900;
+  color: #111111;
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+}
+
+.nav-socials {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-socials a {
+  font-size: 0.9rem;
+  color: #111111;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-socials a:hover {
+  color: #282828;
+}
+
+.nav-footer {
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+  font-size: 0.7rem;
+  color: #666;
+}
+
+.nav-socials a {
+  font-size: 1.2rem;
+  color: #111111;
+  transition: color 0.3s;
+}
+
+.nav-socials a:hover {
+  color: #282828;
+}

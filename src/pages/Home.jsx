@@ -4,6 +4,8 @@ import { OrbitControls, Text3D } from '@react-three/drei'
 import * as THREE from 'three'
 import './Home.css'
 import { Typewriter } from 'react-simple-typewriter';
+import { FaXTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa6';
+
 
 function SpiralField({ count = 3500, floaters = 300 }) {
   const meshRef = useRef()
@@ -102,20 +104,7 @@ function FloatingLogo() {
 
 export default function Home() {
   
-  const [heroWord, setHeroWord] = useState('brand')
-  const heroWords = ['brand', 'idea', 'site', 'product', 'company', 'nigger']
 
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setHeroWord(prev => {
-          const currentIndex = heroWords.indexOf(prev)
-          const nextIndex = (currentIndex + 1) % heroWords.length
-          return heroWords[nextIndex]
-       })
-      }, 1000)  // swap every 1 second
-
-      return () => clearInterval(interval)  // cleanup when component unmounts
-    }, [])
 
 
 
@@ -252,6 +241,10 @@ export default function Home() {
             />
           </span>
         </h1>
+        <h2 className="hero-subheading">
+        We design and launch your brand, website, and social presence in just 2 days, giving startups and creators everything they need to stand out.
+        </h2>
+
       </section>
 
 
@@ -399,6 +392,37 @@ export default function Home() {
         </div>
       </section>
 
+
+
+
+      <section className="nav-section">
+        <div className="nav-socials">
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer">
+            <FaXTwitter size={20} />
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+            <FaLinkedinIn size={20} />
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+            <FaInstagram size={20} />
+          </a>
+        </div>
+
+        <div className="nav-center">
+          <h1>
+            2DAY<br />STUDIO
+          </h1>
+        </div>
+
+        <div className="nav-footer">
+          © 2025 2DAY STUDIO INC.
+        </div>
+      </section>
+
+
     </div>
   )
+
+  
 }
+
