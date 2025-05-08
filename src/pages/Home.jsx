@@ -219,10 +219,11 @@ export default function Home() {
         }
       >
         Enter →
-        <span className="orbit-ring">
-          <span className="orbit-dot" />
-        </span>
       </button>
+    
+  
+  
+
 
 
       {/*HERO SECTION*/}
@@ -230,25 +231,15 @@ export default function Home() {
     
 
       <section className="hero-section">
-        <h1 className="hero-headline">
-          Launch your{' '}
-          <span className="hero-word">
-            <Typewriter
-              words={['brand', 'idea', 'site', 'product']}
-              loop={Infinity}
-              cursor
-              cursorStyle="|"
-              typeSpeed={70}
-              deleteSpeed={50}
-              delaySpeed={1500}
-            />
-          </span>
-        </h1>
+        <div className="hero-headline">
+          <span className="hero-brand">2DAY</span> is a design studio.
+        </div>
         <h2 className="hero-subheading">
-        We design and launch your brand, website, and social presence in just 2 days, giving startups and creators everything they need to stand out.
+          Scale your startup with a <em>brand</em> and a <em>custom website</em> that stands out against the competition.
         </h2>
-
+        <button className="hero-button">Start a project →</button>
       </section>
+
 
 
 
@@ -331,11 +322,11 @@ export default function Home() {
               <li>✔ Fast 1–2 day turnaround per task</li>
               <li>✔ Slack + Notion collaboration, cancel anytime</li>
             </ul>
-            <a href="https://calendly.com/contact-2day/30min" target="_blank" className="cta-button">Start a project →</a>
+            <a href="https://calendly.com/contact-2day/30min" target="_blank" className="cta-button">Chat with us →</a>
           </div>
           <div className="card">
             <h4>Adhoc Design Service</h4>
-            <div className="price"><span>$750</span><span className="subtext">+ tax project min</span></div>
+            <div className="price"><span>$999</span><span className="subtext">+ tax project min</span></div>
             <ul>
               <li>✔ Complete custom website (design + build)</li>
               <li>✔ Full visual brand identity (logo, colors, fonts, kit)</li>
@@ -344,7 +335,7 @@ export default function Home() {
               <li>✔ Strategy session + kickoff call</li>
               <li>✔ All final files, brand book, and website assets delivered</li>
             </ul>
-            <a href="https://calendly.com/contact-2day/30min" target="_blank" className="cta-button">Start a project →</a>
+            <a href="https://calendly.com/contact-2day/30min" target="_blank" className="cta-button">Chat with us →</a>
           </div>
         </div>
       </section>
