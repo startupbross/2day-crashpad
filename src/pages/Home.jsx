@@ -231,14 +231,25 @@ export default function Home() {
     
 
       <section className="hero-section">
+        <div className="hero-background"></div>
         <div className="hero-headline">
           <span className="hero-brand">2DAY</span> is a design studio.
         </div>
         <h2 className="hero-subheading">
           Scale your startup with a <em>brand</em> and a <em>custom website</em> that stands out against the competition.
         </h2>
-        <button className="hero-button">Start a project →</button>
+        <a 
+          href="https://calendly.com/contact-2day/30min?share_attribution=expiring_link"
+          className="hero-button"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Start a project →
+        </a>
       </section>
+
+
+
 
 
 
