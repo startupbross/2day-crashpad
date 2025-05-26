@@ -47,7 +47,6 @@ export default function NavBar() {
 
       <div className="nav-right">
         <div className="nav-desktop-links">
-          <Link to="/projects" className={location.pathname === '/projects' ? 'nav-link active' : 'nav-link'}>Projects</Link>
           <Link to="/about" className={location.pathname === '/about' ? 'nav-link active' : 'nav-link'}>About</Link>
           <Link to="/contact" className={location.pathname === '/contact' ? 'nav-link active' : 'nav-link'}>Contact</Link>
         </div>
@@ -67,7 +66,6 @@ export default function NavBar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
           >
-            <Link to="/projects" onClick={() => setIsOpen(false)} className={location.pathname === '/projects' ? 'nav-link active' : 'nav-link'}>Projects</Link>
             <Link to="/about" onClick={() => setIsOpen(false)} className={location.pathname === '/about' ? 'nav-link active' : 'nav-link'}>About</Link>
             <Link to="/contact" onClick={() => setIsOpen(false)} className={location.pathname === '/contact' ? 'nav-link active' : 'nav-link'}>Contact</Link>
           </motion.div>
