@@ -236,7 +236,7 @@ export default function Home() {
           <span className="hero-brand">2DAY</span> is a design studio.
         </div>
         <h2 className="hero-subheading">
-          Scale your startup with a <em>brand</em> and a <em>custom website</em> that stands out against the competition.
+        Great brands don’t blend in. We design the ones that don’t.
         </h2>
         <a 
           href="https://calendly.com/contact-2day/30min?share_attribution=expiring_link"
@@ -301,6 +301,40 @@ export default function Home() {
       </section>
       
       
+     {/* Projects Section */}
+      <section className="projects-section">
+        <div className="section-pill">Our Work</div>
+        <h2>
+          Projects we’ve crafted with <span className="italic">clarity</span> and <span className="italic">edge</span>.
+        </h2>
+
+        <div className="projects-grid">
+          <div className="project-card">
+            <img src="/images/2day.1.jpg" alt="Project Image 1" />
+          </div>
+          <div className="project-card">
+            <video src="/videos/2day.8.mp4" autoPlay muted loop playsInline />
+          </div>
+          <div className="project-card">
+            <img src="/images/2day.7.jpg" alt="Project Image 2" />
+          </div>
+          <div className="project-card">
+            <video src="/videos/2day.10.mp4" autoPlay muted loop playsInline />
+          </div>
+          <div className="project-card">
+            <video src="/videos/2day.5.mp4" autoPlay muted loop playsInline />
+          </div>
+          <div className="project-card">
+            <img src="/images/2day.2.jpg" alt="Project Image 3" />
+          </div>
+          <div className="project-card">
+            <video src="/videos/2day.3.mp4" autoPlay muted loop playsInline />
+          </div>
+          <div className="project-card">
+            <img src="/images/2day.3.jpg" alt="Project Image 4" />
+          </div>
+        </div>
+      </section>
 
 
 
