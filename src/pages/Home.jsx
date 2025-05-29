@@ -236,7 +236,7 @@ export default function Home() {
           <span className="hero-brand">2DAY</span> is a design studio.
         </div>
         <h2 className="hero-subheading">
-        Great brands don’t blend in. We design the ones that don’t.
+        Great brands don’t blend in. We design the ones that do.
         </h2>
         <a 
           href="https://calendly.com/contact-2day/30min?share_attribution=expiring_link"
